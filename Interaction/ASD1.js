@@ -1,4 +1,4 @@
-class ASD1 extends Asteroid {
+class ASD1 extends Asteroid { //calling the parent class to add its values to the child class
     constructor(pos,speed,sz){
       super(pos,speed,sz)   
     }

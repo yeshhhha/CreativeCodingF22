@@ -7,7 +7,7 @@ class Asteroid {
         this.sz = sz
     }
     
-    clicked(px,py) { 
+    clicked(px,py) { // creating the clicked method
         console.log(px, py);
         if (px != undefined && py != undefined)
         {
@@ -21,10 +21,11 @@ class Asteroid {
     }
 
 
-    move(){
+    move(){ //adding how much the asteroids should move
     this.pos.add (this.speed)
     this.theta += this.rotationSpeed  
 
+    //defining the boundaries for the asteroids to float
     if (this.pos.x >2820 || this.pos.x < 100){
         this.speed= -this.speed;
        
@@ -37,7 +38,7 @@ class Asteroid {
 
     }  
     
-    display() {
+    display() { //roatation speed and position
         noStroke()
         push()
         translate(this.pos.x, this.pos.y)

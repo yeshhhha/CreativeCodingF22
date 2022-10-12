@@ -1,4 +1,4 @@
-class ASD2 extends Asteroid {
+class ASD2 extends Asteroid { //calling the parent class to add its values to the child class
     constructor(pos,speed,sz){
       console.log(sz);
       super(pos,speed,sz)   
