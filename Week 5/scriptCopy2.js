@@ -1,4 +1,5 @@
 let dogImg;
+let url = "https://dog.ceo/api/breeds/image/random"
 
 function setup() {
   createCanvas(windowWidth, windowHeight)
