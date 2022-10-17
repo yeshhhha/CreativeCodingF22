@@ -10,9 +10,22 @@
 	
 }
 
-.titleposition {
-	position: absolute ;
-	text-align: center;
+button {
+	position: absolute;
+	right: 8px;
+	top: 29px;
 }
 
+.button {
+	background-color: black; 
+	border: none;
+	border-radius: 2px;
+	color: white;
+	padding: 10px;
 
+}
+
+.button:hover {
+	background-color: orange;
+	box-shadow: 0 0px 20px 0 rgba(0,255,0,0.24), 0 0px 20px 0 rgba(0,255,0,0.29);
+}

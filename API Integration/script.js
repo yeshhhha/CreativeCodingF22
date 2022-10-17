@@ -1,11 +1,8 @@
-let play;
-
 const client_id= "&client_id=V_F4G3tdOMiFNgHYXLWRgDetokuztdzelstvM6ifnXM";
 
 // function preload (){;
 //   CC = loadImage('C.png')
 // }
-
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -15,7 +12,7 @@ function getRandomInt(min, max) {
 
 let random_number = getRandomInt(1, 20);
 console.log(random_number);
-const api_url=`https://api.unsplash.com/search/collections?page=${random_number}&per_page=40&query=aesthetic`;
+const api_url=`https://api.unsplash.com/search/collections?page=${random_number}&per_page=40&query=spooky`;
 
 let images = [];
 function setup() {
