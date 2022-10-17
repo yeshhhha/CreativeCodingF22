@@ -28,7 +28,7 @@ async function photoSet(){
 
     
     
-    images = data.results.map(s => s.preview_photos.map(a => a.urls["thumb"]));
+    images = data.results.map(s => s.preview_photos.map(a => a.urls["small"]));
 
     
     //reference from http://jsfiddle.net/gcjkL5jw/3/ to display images
