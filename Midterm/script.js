@@ -1,3 +1,8 @@
+// Concept: Creating a version of pianotiles/beatsaber music 
+// games where the user has to click the note object in a lane object to get rid of it
+// if the user successfully clicks -> success message, if the user doesn't -> game over
+// in the background there will be a disc object which will roatate to indicate the music is playing
+
 let note = [];
 let tracks; 
 
@@ -12,7 +17,7 @@ function setup() {
 function addNotes (number) {
   for (let i = 0; i < number; i++) {
     let lanep = Math.floor(random(2, 9));
-    note[i] = new notes (-(tracks.getHeight()*i),tracks.getSize(), tracks.getLane(lanep))
+    note[i] = new notes (0,tracks.getSize(), tracks.getLane(lanep))
   }
 }
 
@@ -26,23 +31,6 @@ function draw() {
 
   }
 
-  function Track (track, speed) {
-    this.getSpeed = function () {
-        return speed
-    }
-
-    this.getSize = function () {
-        return width/track
-    }
-
-    this.getLane = function (lane) {
-        return this.getSize()* (lane - 1)
-    }
-
-    this.getHeight = function () {
-        return this.getSize + (width/10)
-    }
-}
-
+  
  
   
