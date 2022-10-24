@@ -17,7 +17,7 @@ function setup() {
 function addNotes (number) {
   for (let i = 0; i < number; i++) {
     let lanep = Math.floor(random(2, 9));
-    note[i] = new notes (0,tracks.getSize(), tracks.getLane(lanep))
+    note[i] = new notes (1,tracks.getSize(), tracks.getLane(lanep))
   }
 }
 
