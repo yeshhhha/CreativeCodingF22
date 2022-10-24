@@ -13,11 +13,11 @@ function setup() {
   ellipseMode(CENTER);
 
 }
-
+//inspiration to get full integers from https://www.youtube.com/watch?v=jx0w8dJJo-g
 function addNotes (number) {
   for (let i = 0; i < number; i++) {
-    let lanep = Math.floor(random(2, 9));
-    note[i] = new notes (1,tracks.getSize(), tracks.getLane(lanep))
+    let lanen = Math.floor(random(2, 9));
+    note[i] = new notes (1,tracks.getSize(), tracks.getLane(lanen))
   }
 }
 
