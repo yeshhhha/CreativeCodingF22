@@ -13,7 +13,7 @@ class Note {
     }
 
     move() {
-        this.y = this.y + (5); // moving the notes at the speed of 5
+        this.y = this.y + (3); // moving the notes at the speed of 5
     }
 
     //inspiration from https://www.youtube.com/watch?v=554VpvX2m4E to define the bottom value
