@@ -45,12 +45,14 @@ class Note {
 
     //defining the reset function
     reset () {
+        //inspiration from https://www.youtube.com/watch?v=554VpvX2m4E to define the bottom value
         this.x = random(colms);
         this.y = random(rows);
+        //my addition to the reset
         this.columnName = this.defineColumn(this.x);
     }
 
-    //defining the columns for each object note
+    //defining the columns for each object note and telling that in each column what should be the trigger. Switch from p5js library, I found it when going through the reference which worked perfect with my case
     defineColumn(xValue) {
         switch (xValue) {
             case 50:

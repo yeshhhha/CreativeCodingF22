@@ -3,6 +3,7 @@ class Live2 extends Lives {
         super(lx,ly)
     }
 
+    //callling the rectangle through the extender function
     show () {
         super.show()
         // rect(this.lx,this.ly, 25,25);
