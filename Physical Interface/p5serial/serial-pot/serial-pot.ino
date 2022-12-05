@@ -3,7 +3,8 @@ void setup() {
 }
  
 void loop() {
-  int potentiometer = analogRead(A0);                  
+  int potentiometer = analogRead(A0); 
+  //Defining the potentiometer data and it's range of volaues                 
   int mappedPot = map(potentiometer, 0, 1023, 0, 255); 
   // print it out the serial port:
   Serial.println("Potentiometer");

@@ -1,3 +1,5 @@
+//Inspiration for Creative Coding Week 11 Class
+
 let serial;                            
 let inData;                          
 let portSelector;
@@ -31,17 +33,19 @@ function draw() {
   background(0);
   fill(255);
 
-  if (potData <= 63) {
-    image (day, 60, 200, 489, 207)
-  } else if (potData >= 190){
-    image (night, 60, 200, 489, 207)
-  } else if (potData >= 64 && potData <= 127) {
-    image (afternoon, 60,200,489,207)
-  } else if (potData >= 128 && potData <= 189) {
-    image(evening, 60,200,489,207)
+  if (potData <= 63) {                              // Telling the system to read if the data recieved from the potentiometer is less than and equal to 63
+    image (day, 60, 200, 489, 207)                  // Setting image state to day 
+  } else if (potData >= 190){                       // Telling the system to read if the data recieved from the potentiometer is greater than and equal to 190
+    image (night, 60, 200, 489, 207)                // Setting image state to night
+  } else if (potData >= 64 && potData <= 127) {     // Telling the system to read if the data recieved from the potentiometer is greater than and equal 64 or less than and equal to 127
+    image (afternoon, 60,200,489,207)               // Setting image state to afternoon
+  } else if (potData >= 128 && potData <= 189) {    // Telling the system to read if the data recieved from the potentiometer is greater than and equal 128 or less than and equal to 189
+    image(evening, 60,200,489,207)                  // Setting image state to evening
   }
 
 }
+
+//Week 11 Class to fetch data from a serial monitor
 
 // make a serial port selector object:
 function printList(portList) {
@@ -81,12 +85,8 @@ function serialEvent() {
 
   if (inString === "Potentiometer") {
     dataMode = "Potentiometer"
-  // } else if (inString === "Button") {
-  //   dataMode = "Button"
   } else if (dataMode === "Potentiometer") {
     potData = inString
-  // } else if (dataMode === "Button") {
-  //   buttonData = inString
   }
 
   inData = inString
