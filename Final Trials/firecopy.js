@@ -12,11 +12,12 @@ function draw () {
   background(0);
  
 
-  stroke(0)
+  stroke(0);
+  push();
+  scale(1.1);
+  translate (-40, -4, -width/2);
 
-  translate (0, 0, -width/2)
-
-  let space = 20
+  let space = 20;
 
   for (let i = 0; i < width; i += space) {
 
@@ -41,8 +42,11 @@ function draw () {
   }
 
   start += 0.05
+  pop();
 
-  translate (-width/50,-height/40)
+  push();
+  scale(0.55);
+  translate (-width/55,-height/42)
   noStroke()
   let spaceF = 0.1
 
@@ -65,10 +69,11 @@ function draw () {
     // rotateX(spaceF);
     // rotateY(spaceF);
     // rotateZ(spaceF);
-    rect(500,0,hf,1)
+    rect(400,0,hf,1)
 
   }
   
   start += 0.01
+  pop();
 
 }

@@ -1,40 +1,82 @@
-// function setup () {
-//   createCanvas(windowWidth, windowHeight, WEBGL);
+//defining the initial position of the element
+let start = 0
 
-//   angleMode(DEGREES)
-//   noiseDetail(10)
+function setup () {
+  createCanvas(windowWidth, windowHeight, WEBGL); //adding WEBGL to enable 3D elements
 
-// }
+  angleMode(DEGREES) //setting the angle mode to degrees
+  noiseDetail(5) // defining how detailed the noise added should be
 
-// function draw () {
-//   background(250);
+}
 
-//   // strokeWeight(0)
+function draw () {
+  background(0);
+ 
+  //3D spinning torus
 
-//   translate (0, 0, -width/2)
+  stroke(0);
+  push();
+  scale(1.1); // adjusting the scale to match the outer ring
+  translate (-40, -4, -width/2); //adjusting the posiiton
 
-//   let space = 30
+  let space = 20; //defining the distance between each torus generated
 
-//   for (let i = 0; i < width; i += space) {
+  for (let i = 0; i < width; i += space) {
 
-//     let xOff = map (cos(i), -1, 1, 0, 3)
-//     let yOff = map (cos(i), -1, 1, 0, 3)
+    let xOff = map (cos(i), -1, 1, 0, 3) //defining how much the x angle should be offset everytime a torus is generated
+    let yOff = map (sin(i), -1, 1, 0, 3) //defining how much the y angle should be offset everytime a torus is generated
     
-//     let n = noise (xOff, yOff)
+    let n = noise (xOff, yOff + start) //mapping the noise element with the start position
 
-//     let h = map (n, 0, 1, -150, 150)
+    let h = map (n, 0, 1, -150, 150) //defining the height & mapping the position
 
-//     rotateZ(frameCount * 0.01);
-//     rotateX(frameCount * 0.01);
-//     rotateY(frameCount * 0.01);
-//     torus (350,10,24,16);
+    let r = map(h, 255, 255, 100, 55) //mapping the r value for random ranges in red
+    let g = map(h, 150, 255, 180, 245) //mapping the g value for random ranges in green
+    let b = map(h, 200, 255, 0, 155) // mapping the b value for random ranges in blue
+    
+    fill(r,g,b); //fill colour of the elements
 
+    rotateX(space); //rotating the X axis with the amount of space
+    rotateY(space); //rotating the Y axis witht he amount of space
+    rotateZ(h/5); //rotating the Z axis with the height
+    torus(400,4,24, 16); //creating the
 
-//   // pop();
+  }
 
-//   }
+  start += 0.05 //start position & speed
 
-//   // translate (0, 0, 0);
-//   // push();
+  //3D Fire Ring
+
+  pop();
+
+  push();
+  scale(0.55); //adjusting the scale to match the 3D torus 
+  translate (-width/55,-height/42) //adjusting the position to match the 3D torus
+  noStroke()
+
+  let spaceF = 0.1 //defining the space and rate generated
+
+  for (let f = 0; f<width; f += spaceF) {
+
+    let xfOff = map (cos(f), -10, 10, 10, 23) //defining the X offset angle
+    let yfOff = map (sin(f), -10, 1, 10, 23) //defining the Y offset angle
+    
+    let nf = noise (xfOff + start, yfOff + start) //mapping the noise element witht he start position
+
+    let hf = map (nf, 0, 1, -150, 150) //defining the height & mapping the position
+
+    let rf = map(sin(f), 255, 255, 100, 55) //mapping the r value for random ranges in red
+    let gf = map(hf, 150, 255, 180, 245) //mapping the g values for random ranges in green
+    let bf = map(nf, 200, 255, 0, 200) //mapping the b values for random ranges in blue
+    
+    fill(rf,gf,bf); // fill colour of the elements
+
+    rotate(spaceF); //rotating the ring with the amount of space
+    rect(400,0,hf,1) //generating multiple squares to look like blobs with the amount of noise
+
+  }
   
-// }
+  start += 0.01 //start position & speed
+  pop();
+
+}
