@@ -4,7 +4,7 @@ let points = []
 let multiplier = 0.005
 
 function setup() {
-  createCanvas(windowWidth, windowHeight)//, WEBGL)
+  createCanvas(windowWidth, windowHeight)
   angleMode(DEGREES) //setting the angle mode to degrees
   noiseDetail(10) // defining how detailed the noise added should be
 

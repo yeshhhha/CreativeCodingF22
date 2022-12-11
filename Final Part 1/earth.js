@@ -1,6 +1,6 @@
 //setting the initial states of the terrain
 let terrain = [];
-let multiplier = 50;
+let multiplier = 100;
 let xoff = 0;
 let yoff = 0;
 let zoff = 0;
@@ -8,46 +8,40 @@ let incline = 0.1;
 let zincline = 0.02;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight,WEBGL) // adding WEBGL to enable 3D elements
+  createCanvas(windowWidth, windowHeight, WEBGL); // adding WEBGL to enable 3D elements
   angleMode(DEGREES); // setting the angle mode to degrees
 
-//mapping out the terrain to it's values
-  for(let y = 0; y < 60; y++){
-    xoff = 0;
-    for(let x = 0; x < 60; x++){
-        zoff = 0;
-        terrain.push([]);
-        for (let z = 0; z < 60; z++) {
-            terrain[y][x] = map(noise(x, y,z),0,1,-1, -multiplier, multiplier) // adding noise elements to the terrain to make it look realistic;
-            zoff = zoff + zincline //defining the Z index incline
-        }
-        
-        xoff = xoff + incline //defining the X index incline
+  //mapping out the terrain to it's values
+  for (let x = 0; x < 60; x++) {
+    terrain.push([]);
+    for (let y = 0; y < 60; y++) {
+      terrain[x][y] = map(noise(x, y), 0, 1, -1, -multiplier, multiplier);
+      xoff = xoff + incline;
     }
-    yoff = yoff + incline //defining the Y index incline
+    yoff = yoff + incline;
   }
-
+  
 }
 
 function draw() {
-  background(0)
+  background(0);
 
-   stroke(0,255,0);
-   noFill();
-
-   rotateX(60); // adding rotation to the background to the terrain looks like it is on flat ground
-   translate(-width/2, -height/2); // adjusting the position of the terrain
-
-  for(let y = 0; y < 60; y++){
+  stroke(0, 255, 0);
+  noFill();
+  zincline = (zincline + 1) % 500;
+  // incline = sin(zincline) * 5; //to move up and down
+  translate(-150, incline*10 , zincline); // adjusting the position of the terrain
+  rotateX(85); // adding rotation to the background to the terrain looks like it is on flat ground
+  translate(-width / 2, -height / 2);
+  for (let y = 0; y < 60; y++) {
     beginShape(TRIANGLE_STRIP); // generating the terrain using the p5 TRIANGLE_STRIP element
-    for(let x = 0; x < 60; x++){
-        //defining the x & y posisitons of each vector created
-        vertex(x*20, y*20, terrain[x][y]);
-        vertex(x*20, (y+1)*20, terrain[x][y]);
+    for (let x = 0; x < 60; x++) {
+      //defining the x & y posisitons of each vector created
+      vertex(x * 20, y * 20, terrain[x][y]);
+      vertex(x * 20, (y + 1) * 20, terrain[x][y]);
     }
     endShape();
   }
-
 }
 
 //reference

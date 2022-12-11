@@ -21,7 +21,7 @@ function setup() {
   serial.on('error', serialError);    // callback for errors
   serial.on('close', portClose);      // callback for the port closing
 
-  serial.list();                      // list the serial ports
+  serial.list();                       // list the serial ports
   // serial.openPort(portName);              // open a serial port
 }
 

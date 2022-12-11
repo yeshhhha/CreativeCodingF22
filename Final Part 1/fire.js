@@ -3,7 +3,9 @@ let start = 0
 
 function setup () {
   createCanvas(windowWidth, windowHeight, WEBGL); //adding WEBGL to enable 3D elements
-
+  // serial = new p5.SerialPort();
+  // serial.openPort("/dev/tty.usbmodem1101");
+  // serial.on("data", getData);
   angleMode(DEGREES) //setting the angle mode to degrees
   noiseDetail(5) // defining how detailed the noise added should be
 
@@ -13,10 +15,17 @@ function draw () {
   background(0);
  
   //3D spinning torus
-
+  let scaleValue = int(value[0]) + int(value[1]);
+  // console.log(scaleValue);
+  if(scaleValue > 50 || scaleValue < 15){
+    scaleValue = 1.1;
+  }
+  else{
+    scaleValue = scaleValue/30;
+  }
   stroke(0);
   push();
-  scale(1.1); // adjusting the scale to match the outer ring
+  scale(scaleValue); // adjusting the scale to match the outer ring
   translate (-40, -4, -width/2); //adjusting the posiiton
 
   let space = 20; //defining the distance between each torus generated
@@ -50,8 +59,8 @@ function draw () {
   pop();
 
   push();
-  scale(0.55); //adjusting the scale to match the 3D torus 
-  translate (-width/55,-height/42) //adjusting the position to match the 3D torus
+  scale(scaleValue/2.015) //adjusting the scale to match the 3D torus 
+  translate(-width/55,-height/42) //adjusting the position to match the 3D torus
   noStroke()
 
   let spaceF = 0.1 //defining the space and rate generated
@@ -79,4 +88,13 @@ function draw () {
   start += 0.01 //start position & speed
   pop();
 
+}
+
+
+function getData() {
+  data = trim(serial.readLine());
+  if (!data) return;
+  value = data.split(",");
+  value[0] = value[0] > 120 ? 0 : value[0];
+  value[1] = value[1] > 120 ? 0 : value[1];
 }
