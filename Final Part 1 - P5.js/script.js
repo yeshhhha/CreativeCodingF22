@@ -28,15 +28,15 @@ function draw() {
     if (value[2] == "FIRE") {
       if (art) art.remove();
       art = new p5(fireSketch, window.document.getElementById("art"));
-      var x0 = document.getElementById("art");
+      let x0 = document.getElementById("art");
       if (x0.style.display === "none") {
         x0.style.display = "block";
       }
 
-      var x = document.getElementById("art1");
+      let x = document.getElementById("art1");
       x.style.display = "none";
 
-      var x1 = document.getElementById("art2");
+      let x1 = document.getElementById("art2");
       x1.style.display = "none";
 
     }
@@ -45,14 +45,14 @@ function draw() {
   if (value[2] == "EARTH") {
     if (art) art.remove();
     art = new p5(earthSketch, window.document.getElementById("art1"));
-    var x0 = document.getElementById("art1");
+    let x0 = document.getElementById("art1");
     if (x0.style.display === "none") {
       x0.style.display = "block";
     }
-    var x = document.getElementById("art");
+    let x = document.getElementById("art");
     x.style.display = "none";
 
-    var x1 = document.getElementById("art2");
+    let x1 = document.getElementById("art2");
     x1.style.display = "none";
   }
 
@@ -60,15 +60,15 @@ function draw() {
   if (value[2] == "WATER") {
     if (art) art.remove();
     art = new p5(waterSketch, window.document.getElementById("art2"));
-    var x0 = document.getElementById("art2");
+    let x0 = document.getElementById("art2");
     if (x0.style.display === "none") {
       x0.style.display = "block";
     }
 
-    var x = document.getElementById("art");
+    let x = document.getElementById("art");
     x.style.display = "none";
 
-    var x1 = document.getElementById("art1");
+    let x1 = document.getElementById("art1");
     x1.style.display = "none";
   }
 
@@ -286,10 +286,11 @@ let earthSketch = function (e) {
     e.translate(150, incline * 10, zincline); // adjusting the position of the terrain
     e.rotateX(85); // adding rotation to the background to the terrain looks like it is on flat ground
     e.translate(-e.width / 2, -e.height / 2);
-    for (let y = 0; y < 60; y++); {
-      e.beginShape(e.TRIANGLE_STRIP); // generating the terrain using the p5 TRIANGLE_STRIP element | Inspired by: Hritik RC https://www.youtube.com/watch?v=_Tyhfpxwips&ab_channel=HritikRC
-      for (let x = 0; x < 60; x++); {
-        //defining the x & y posisitons of each vector created
+    for (let y = 0; y < 60; y++) {
+      // generating the terrain using the p5 TRIANGLE_STRIP element | Inspired by: Hritik RC https://www.youtube.com/watch?v=_Tyhfpxwips&ab_channel=HritikRC
+      e.beginShape(e.TRIANGLE_STRIP); 
+      //defining the x & y posisitons of each vector created
+      for (let x = 0; x < 60; x++) {
         e.vertex(x * 20, y * 20, terrain[x][y]);
         e.vertex(x * 20, (y + 1) * 20, terrain[x][y]);
       }
