@@ -1,11 +1,18 @@
+// Concept: Creating a physical interface model for manipulating elements through your hand and displaying it on the screen
+// The user will first select a button to define the modes
+// After a mode has been selected the user can manipulate the elements with the ultrasonic sensors
+
+
+//Defining the global variables and arrays;
 let serial;
 let data;
 let value = [1.1, 0.55, ""];
 let art;
-let old = "";
 
 function setup() {
   createCanvas(windowWidth, 0);
+
+  //Defining the serial input data
   serial = new p5.SerialPort();
   serial.openPort("/dev/tty.usbmodem1101");
   serial.on("data", getData);
@@ -13,10 +20,10 @@ function setup() {
 
 function draw() {
   background(0);
-  // textSize(40)
-  // text('Final Project Creative Coding Fall 2022', width / 2, 80);
-  // textAlign(CENTER, CENTER)
-  // fill(0)
+
+  //Setting the Switch case for button mode with html id
+
+  //Fire Switch
   if (value)
     if (value[2] == "FIRE") {
       if (art) art.remove();
@@ -33,6 +40,8 @@ function draw() {
       x1.style.display = "none";
 
     }
+
+  //Earth Switch  
   if (value[2] == "EARTH") {
     if (art) art.remove();
     art = new p5(earthSketch, window.document.getElementById("art1"));
@@ -46,6 +55,8 @@ function draw() {
     var x1 = document.getElementById("art2");
     x1.style.display = "none";
   }
+
+  //Water Switch
   if (value[2] == "WATER") {
     if (art) art.remove();
     art = new p5(waterSketch, window.document.getElementById("art2"));
@@ -61,44 +72,36 @@ function draw() {
     x1.style.display = "none";
   }
 
-  // switch(value[2]){
-  //   case "FIRE":
-  //     art = new p5(fireSketch);
-  //     break;
-  //   case "WATER":
-  //     art = new p5(waterSketch);
-  //     break;
-  //   case "EARTH":
-  //     art = new p5(earthSketch);
-  //     break;
-  //   default:
-  // }
-
 }
 
+//Get Data function to pull values from the sensors
 function getData() {
   data = trim(serial.readLine());
   if (!data) return;
   value = data.split(",");
   value[0] = value[0] > 120 ? 0 : value[0];
   value[1] = value[1] > 120 ? 0 : value[1];
-  // value[2] = value[2] == "" ? "FIRE" : value[2];
   console.log(value);
 }
 
+//Fire Sketch Function 
+//Creating a function to define the fire state, so it can be called and switched with the switch case, using P5.js instance mode
 let fireSketch = function (f) {
   let start = 0;
+  
+  //Fire Setup
   f.setup = function () {
     f.createCanvas(f.windowWidth, f.windowHeight, f.WEBGL); //adding WEBGL to enable 3D elements
     f.angleMode(f.DEGREES) //setting the angle mode to degrees
     f.noiseDetail(5) // defining how detailed the noise added should be
   }
 
+  //Fire Draw Loop
   f.draw = function () {
     f.background(0);
 
     //3D spinning torus
-    let scaleValue = f.int(value[0]) + f.int(value[1]);
+    let scaleValue = f.int(value[0]) + f.int(value[1]); //Adjusting the values according to the two ultrasonic sensors
     // console.log(scaleValue);
     if (scaleValue > 50 || scaleValue < 15) {
       scaleValue = 1.1;
@@ -131,13 +134,14 @@ let fireSketch = function (f) {
       f.rotateX(space); //rotating the X axis with the amount of space
       f.rotateY(space); //rotating the Y axis witht he amount of space
       f.rotateZ(h / 5); //rotating the Z axis with the height
-      f.torus(400, 4, 24, 16); //creating the
+      f.torus(400, 4, 24, 16); //creating the torus
 
     }
 
     start += 0.05 //start position & speed
 
     //3D Fire Ring
+    //Inspired by: ColourfulCoding https://www.youtube.com/watch?v=0YvPgYDR1oM&ab_channel=ColorfulCoding
 
     f.pop();
 
@@ -174,14 +178,15 @@ let fireSketch = function (f) {
   }
 }
 
-// let fireLoad = new p5(fireSketch);
-
-
+//Water Sketch Function 
+//Creating a function to define the water state, so it can be called and switched with the switch case, using P5.js instance mode
 let waterSketch = function (w) {
 
-  let points = []
+  //Defining the water variables and arrays
+  let water = []
   let multiplier = 0.005
 
+  //Water Setup
   w.setup = function () {
     w.createCanvas(w.windowWidth, w.windowHeight);
     w.angleMode(w.DEGREES) //setting the angle mode to degrees
@@ -193,7 +198,7 @@ let waterSketch = function (w) {
     for (let x = 0; x < w.width; x += space) {
       for (let y = 0; y < w.height; y += space) {
         let p = w.createVector(x + w.random(-10, 10), y + w.random(-10, 10)) //creating the waves
-        points.push(p) //pushing the waves to the canvas
+        water.push(p) //pushing the waves to the canvas
       }
     }
 
@@ -201,29 +206,30 @@ let waterSketch = function (w) {
 
   }
 
+  //Water Draw Loop
   w.draw = function () {
     w.background(10, 10);
     w.noStroke();
 
-    for (let i = 0; i < points.length; i++) {
+    for (let i = 0; i < water.length; i++) {
 
-      let r = w.map(points[i].x, 0, w.width, 50, 65) //mapping the r value for random ranges in red
-      let g = w.map(points[i].y, 0, w.height, 60, 90) //mapping the g value for random ranges in green
-      let b = w.map(points[i].x, 0, w.width, 255, 150) //mapping the b value for random ranges in blue
+      let r = w.map(water[i].x, 0, w.width, 50, 65) //mapping the r value for random ranges in red
+      let g = w.map(water[i].y, 0, w.height, 60, 90) //mapping the g value for random ranges in green
+      let b = w.map(water[i].x, 0, w.width, 255, 150) //mapping the b value for random ranges in blue
 
       w.fill(r, g, b); //fill colour of the waves
 
-      let angle = w.map(w.noise(points[i].x * multiplier, points[i].y * multiplier), 0, 1, 0, (value[0] + value[1])) //defining the angle at which the waves should be generated
+      let angle = w.map(w.noise(water[i].x * multiplier, water[i].y * multiplier), 0, 1, 0, (value[0] + value[1])) //defining the angle at which the waves should be generated using the ultrasonic sensors
 
-      points[i].add(w.createVector(w.cos(angle+value[0]), w.sin(angle+value[0])))
+      water[i].add(w.createVector(w.cos(angle+value[0]), w.sin(angle+value[0]))) //Creating random waves based on the ultrasonic sensor values
 
-      if (w.dist(w.width / 2, w.height / 2, points[i].x, points[i].y) < 300) { //creating a circular mask around the ellipse
-        w.ellipse(points[i].x, points[i].y, 1)
+      if (w.dist(w.width / 2, w.height / 2, water[i].x, water[i].y) < 300) { //creating a circular mask around the ellipse | //Inspired by: Colourful Coding https://www.youtube.com/watch?v=1-QXuR-XX_s&ab_channel=ColorfulCoding
+        w.ellipse(water[i].x, water[i].y, 1)
       }
 
-      if (!onScreen(points[i])) { //defining that if the waves go off the screen to generate a new one at a random x and y position
-        points[i].x = w.random(w.width);
-        points[i].y = w.random(w.height);
+      if (!onScreen(water[i])) { //defining that if the waves go off the screen to generate a new one at a random x and y position
+        water[i].x = w.random(w.width);
+        water[i].y = w.random(w.height);
       }
     }
 
@@ -235,8 +241,11 @@ let waterSketch = function (w) {
 
 }
 
+//Earth Sketch Function 
+//Creating a function to define the earth state, so it can be called and switched with the switch case, using P5.js instance mode
 let earthSketch = function (e) {
 
+  //Defining the eart variables and arrays
   let terrain = [];
   let multiplier = 100;
   let xoff = 0;
@@ -245,6 +254,7 @@ let earthSketch = function (e) {
   let incline = 0.1;
   let zincline = 0.02;
 
+  //Earth Setupt
   e.setup = function () {
     e.createCanvas(e.windowWidth, e.windowHeight, e.WEBGL);
     e.angleMode(e.DEGREES) //setting the angle mode to degrees
@@ -261,22 +271,23 @@ let earthSketch = function (e) {
 
   }
 
+  //Earth Draw Loop
   e.draw = function () {
     e.background(0);
 
-    let scaleValue = e.int(value[1]);
+    let scaleValue = e.int(value[1]); //Defining the scale with the second ultrasonic sensor
 
     e.stroke('#2BB02B');
     e.noFill();
     e.strokeWeight(2.5);
-    e.scale(scaleValue / 2.015)
-    zincline = (value[0] + 1) % 500;
+    e.scale(scaleValue / 2.015) //Defining how large the terrain should be
+    zincline = (value[0] + 1) % 500; //Adjusting the incline position with the first ultrasonic sensor
     // incline = value[0]; //to move up and down
     e.translate(150, incline * 10, zincline); // adjusting the position of the terrain
     e.rotateX(85); // adding rotation to the background to the terrain looks like it is on flat ground
     e.translate(-e.width / 2, -e.height / 2);
     for (let y = 0; y < 60; y++) {
-      e.beginShape(e.TRIANGLE_STRIP); // generating the terrain using the p5 TRIANGLE_STRIP element
+      e.beginShape(e.TRIANGLE_STRIP); // generating the terrain using the p5 TRIANGLE_STRIP element | Inspired by: Hritik RC https://www.youtube.com/watch?v=_Tyhfpxwips&ab_channel=HritikRC
       for (let x = 0; x < 60; x++) {
         //defining the x & y posisitons of each vector created
         e.vertex(x * 20, y * 20, terrain[x][y]);
@@ -288,6 +299,3 @@ let earthSketch = function (e) {
 
 
 }
-
-// let waterLoad = new p5(waterSketch);
-// let earthLoad = new p5(earthSketch);
