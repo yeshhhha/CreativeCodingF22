@@ -14,18 +14,9 @@ function setup () {
 function draw () {
   background(0);
  
-  //3D spinning torus
-  let scaleValue = int(value[0]) + int(value[1]);
-  // console.log(scaleValue);
-  if(scaleValue > 50 || scaleValue < 15){
-    scaleValue = 1.1;
-  }
-  else{
-    scaleValue = scaleValue/30;
-  }
   stroke(0);
   push();
-  scale(scaleValue); // adjusting the scale to match the outer ring
+  scale(1.1); // adjusting the scale to match the outer ring
   translate (-40, -4, -width/2); //adjusting the posiiton
 
   let space = 20; //defining the distance between each torus generated
@@ -59,7 +50,7 @@ function draw () {
   pop();
 
   push();
-  scale(scaleValue/2.015) //adjusting the scale to match the 3D torus 
+  scale(0.5) //adjusting the scale to match the 3D torus 
   translate(-width/55,-height/42) //adjusting the position to match the 3D torus
   noStroke()
 
